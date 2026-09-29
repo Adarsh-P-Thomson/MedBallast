@@ -1,0 +1,6 @@
+type IconProps = { size?: number };
+
+export function ArrowUpRight({ size = 16 }: IconProps) { return <svg aria-hidden="true" width={size} height={size} viewBox="0 0 16 16" fill="none"><path d="M3.5 12.5 12 4m0 0H5m7 0v7" stroke="currentColor" strokeWidth="1.4" strokeLinecap="square" /></svg>; }
+export function CrossMark({ size = 18 }: IconProps) { return <svg aria-hidden="true" width={size} height={size} viewBox="0 0 18 18" fill="none"><path d="M7 2h4v5h5v4h-5v5H7v-5H2V7h5V2Z" fill="currentColor" /></svg>; }
+export function ShieldCheck({ size = 19 }: IconProps) { return <svg aria-hidden="true" width={size} height={size} viewBox="0 0 20 20" fill="none"><path d="m10 2 6 2.2v4.5c0 4.3-2.6 7.4-6 9.3-3.4-1.9-6-5-6-9.3V4.2L10 2Z" stroke="currentColor" strokeWidth="1.3" /><path d="m7 9.6 1.8 1.8L13 7.3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="square" /></svg>; }
+export function RouteLine({ size = 19 }: IconProps) { return <svg aria-hidden="true" width={size} height={size} viewBox="0 0 20 20" fill="none"><circle cx="4" cy="15" r="2" stroke="currentColor" strokeWidth="1.3" /><circle cx="16" cy="5" r="2" stroke="currentColor" strokeWidth="1.3" /><path d="M5.7 13.8c2.5-1 2.6-4.8 5.2-5.8 1.2-.5 2.3-.1 3.4-.8" stroke="currentColor" strokeWidth="1.3" strokeDasharray="1.8 2" /></svg>; }
