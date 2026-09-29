@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { AccessPaths } from "@/components/access-paths";
-import { ArrowUpRight, CrossMark, RouteLine, ShieldCheck } from "@/components/icons";
+import { ArrowUpRight, CrossMark, LoginIcon, RouteLine, ShieldCheck } from "@/components/icons";
 
 const roles = [
   { number: "01", title: "Suppliers", text: "Keep stock, fulfilment, and delivery visibility in one place." },
@@ -14,7 +14,7 @@ export default function Home() {
       <header className="site-header page-width">
         <Link className="brand" href="/" aria-label="MedBallast home"><span className="brand-mark" aria-hidden="true"><CrossMark /></span><span>MedBallast</span></Link>
         <nav className="primary-nav" aria-label="Main navigation"><Link href="#network">The network</Link><Link href="#roles">For organisations</Link><Link href="#access">Access</Link></nav>
-        <Link className="header-link" href="#access">Sign in <ArrowUpRight /></Link>
+        <Link className="header-link" href="/sign-in"><LoginIcon /> Sign in <ArrowUpRight /></Link>
       </header>
 
       <section className="hero page-width" aria-labelledby="hero-title">

@@ -32,15 +32,17 @@ npm run start
 
 ## Environment variables
 
-The project intentionally has no `NEXT_PUBLIC_*` variables. All configuration in `.env.example` uses server-only names and must be read from server components, route handlers, or other server-side code.
+All configuration in `.env.example` uses server-only names and must be read from server components, route handlers, or other server-side code.
 
 Copy `.env.example` to `.env.local` and replace the placeholder values for local development. Do not commit `.env.local` or real credentials.
 
 Current server-only variables:
 
+- `SUPABASE_URL` — the Supabase project URL.
+- `SUPABASE_PUBLISHABLE_KEY` — the public Supabase key used for site operations. Row Level Security must protect every table, view, and function exposed through it.
+- `MEDBALLAST_SITE_URL` — the site origin used for email confirmation redirects.
 - `MEDBALLAST_API_URL` — URL for the MedBallast API.
 - `MEDBALLAST_API_TOKEN` — optional server-to-server API token.
-- `MEDBALLAST_SESSION_SECRET` — secret used for session signing when authentication is connected.
 
 ## Structure
 
@@ -60,3 +62,29 @@ components/
 - Users can access only the Supplier, Hospital, or Pharmacy entities they have been added to as members.
 - Organisations can own multiple entities.
 - Entity geolocation supports proximity-based supply routing and redistribution.
+
+## Supabase health check
+
+The first integration checkpoint is available at `/api/health`. It uses the Supabase publishable key to call the public Auth settings endpoint and returns a small, non-sensitive status payload. It returns HTTP `503` until both Supabase variables are configured, and HTTP `200` when the Auth API responds successfully.
+
+```bash
+curl http://localhost:3000/api/health
+```
+
+## Authentication
+
+Supabase Auth is wired with cookie-backed SSR sessions using the publishable key. The available flows are:
+
+- `/sign-in` — password sign-in with safe return-path handling.
+- `/create-account` — account creation with server validation and email confirmation support.
+- `/auth/confirm` — exchanges Supabase email confirmation tokens for a session.
+- `/workspace` — protected user workspace route.
+- Server-side sign out with a local-session scope.
+
+For email confirmation, configure the Supabase Confirm signup template to link to:
+
+```text
+{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=email
+```
+
+Add the local and deployed site origins to Supabase Auth redirect URLs. The workspace UI is intentionally a reusable in-development component until organisation membership and entity data are connected.
