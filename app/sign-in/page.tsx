@@ -1,10 +1,18 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { ArrowUpRight, CrossMark, LoginIcon } from "@/components/icons";
 import { SignInForm } from "@/components/auth/sign-in-form";
+import { createClient } from "@/lib/supabase/server";
+
+export const dynamic = "force-dynamic";
 
 export default async function SignInPage({ searchParams }: { searchParams: Promise<{ next?: string; error?: string; message?: string }> }) {
   const params = await searchParams;
   const nextPath = params.next?.startsWith("/") && !params.next.startsWith("//") ? params.next : "/workspace";
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  if (user) redirect("/workspace");
 
   return (
     <main className="auth-shell">

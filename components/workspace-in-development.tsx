@@ -1,8 +1,9 @@
 import { RouteLine, ShieldCheck } from "@/components/icons";
 
-export function WorkspaceInDevelopment({ displayName, email }: { displayName: string; email: string }) {
+export function WorkspaceInDevelopment({ displayName, email, verified }: { displayName: string; email: string; verified?: boolean }) {
   return (
     <section className="workspace-dev" aria-labelledby="workspace-title">
+      {verified && <div className="workspace-verification" role="status"><ShieldCheck /><span><strong>Email successfully verified.</strong> Your MedBallast account is ready.</span></div>}
       <div className="workspace-dev-heading">
         <p className="eyebrow"><span className="eyebrow-line" />Workspace</p>
         <p className="workspace-index">MB / 00</p>

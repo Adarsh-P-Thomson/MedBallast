@@ -14,7 +14,10 @@ export async function GET(request: NextRequest) {
   if (tokenHash && type) {
     const supabase = await createClient();
     const { error } = await supabase.auth.verifyOtp({ type, token_hash: tokenHash });
-    if (!error) return NextResponse.redirect(redirectUrl);
+    if (!error) {
+      redirectUrl.searchParams.set("verified", "1");
+      return NextResponse.redirect(redirectUrl);
+    }
   }
 
   redirectUrl.pathname = "/sign-in";

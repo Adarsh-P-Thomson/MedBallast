@@ -1,8 +1,17 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { ArrowUpRight, CrossMark } from "@/components/icons";
 import { CreateAccountForm } from "@/components/auth/create-account-form";
+import { createClient } from "@/lib/supabase/server";
 
-export default function CreateAccountPage() {
+export const dynamic = "force-dynamic";
+
+export default async function CreateAccountPage() {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  if (user) redirect("/workspace");
+
   return (
     <main className="auth-shell">
       <header className="auth-header page-width">
